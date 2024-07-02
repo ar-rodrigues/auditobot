@@ -74,7 +74,13 @@ export const GET = async (req, res) => {
       }
     });
 
-    return new Response(JSON.stringify(formattedData), { status: 200, headers: { 'Content-Type': 'application/json' } });
+    return new Response(JSON.stringify(formattedData), {
+      status: 200,
+      headers: {
+        'Content-Type': 'application/json',
+        'Cache-Control': 'no-store, max-age=0',
+      },
+    });
   } catch (error) {
     console.error('Error fetching data from Google Sheets:', error);
     return new Response(JSON.stringify({ error: 'Error fetching data from Google Sheets' }), { status: 500, headers: { 'Content-Type': 'application/json' } });
