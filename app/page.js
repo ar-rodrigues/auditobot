@@ -6,6 +6,7 @@ import Form from './components/form.js';
 const MainPage = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [name, setName] = useState('');
+  const [data, setData] = useState(null);
   const router = useRouter();
 
   useEffect(() => {
@@ -14,12 +15,20 @@ const MainPage = () => {
       setIsLoggedIn(true);
       setName(userName);
     }
+
+    const fetchData = async () => {
+      const response = await fetch('/api/data');
+      const result = await response.json();
+      setData(result);
+    };
+
+    fetchData();
   }, []);
 
   return (
     <div className="max-w-md p-4 mx-auto">
       {isLoggedIn ? (
-        <Form user={name} />
+        <Form user={name} data={data} />
       ) : (
         <button
           onClick={() => router.push('/login')}

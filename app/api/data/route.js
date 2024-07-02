@@ -1,6 +1,7 @@
+import { NextResponse } from 'next/server';
 import { google } from 'googleapis';
 
-export const GET = async (req, res) => {
+const getDataFromSpreadsheet = async () => {
   // Variables for credentials
   const typeAcc = process.env['GOOGLE_TYPE'];
   const projectId = process.env['GOOGLE_PROJECT_ID'];
@@ -74,15 +75,23 @@ export const GET = async (req, res) => {
       }
     });
 
-    return new Response(JSON.stringify(formattedData), {
-      status: 200,
-      headers: {
-        'Content-Type': 'application/json',
-        'Cache-Control': 'no-store, max-age=0',
-      },
-    });
+    return formattedData;
   } catch (error) {
     console.error('Error fetching data from Google Sheets:', error);
-    return new Response(JSON.stringify({ error: 'Error fetching data from Google Sheets' }), { status: 500, headers: { 'Content-Type': 'application/json' } });
+    throw new Error('Error fetching data from Google Sheets');
   }
 };
+
+export async function GET() {
+  try {
+    const data = await getDataFromSpreadsheet();
+
+    // Exclude user information
+    const { users, ...otherData } = data;
+
+    return NextResponse.json(otherData);
+  } catch (error) {
+    console.error('Error fetching data from spreadsheet:', error);
+    return NextResponse.json({ error: 'Error fetching data from spreadsheet' }, { status: 500 });
+  }
+}
