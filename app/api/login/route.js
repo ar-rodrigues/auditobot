@@ -6,7 +6,7 @@ export async function POST(request) {
     const { name, password } = await request.json();
 
     // Fetch data from the API
-    const response = await fetch('http://localhost:3000/api/data'); // Ensure this endpoint is correct
+    const response = await fetch('/api/data'); // Ensure this endpoint is correct
 
     if (!response.ok) {
       console.error('Error fetching data from API:', response.statusText);
