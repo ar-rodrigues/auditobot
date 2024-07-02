@@ -6,7 +6,7 @@ export async function POST(request) {
     const { name, password } = await request.json();
 
     // Use the full URL for the fetch request
-    const baseUrl = process.env.URL || 'http://localhost:3000'; // Use 'http://localhost:3000' for local development
+    const baseUrl = process.env["URL_BASE"] || 'http://localhost:3000'; // Use 'http://localhost:3000' for local development
     const response = await fetch(`${baseUrl}/api/data`); 
 
     if (!response.ok) {
