@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 const LoginPage = () => {
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
   const router = useRouter();
 
@@ -38,11 +39,11 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="max-w-md p-4 mx-auto text-black">
-      <h1 className="mb-4 text-xl font-bold">Login</h1>
+    <div className="flex flex-col items-center justify-center max-w-md p-4 mx-auto text-black bg-slate-900 ">
+      <h1 className="mb-4 text-xl font-bold text-white">Acceder</h1>
       {error && <div className="mb-4 text-red-500">{error}</div>}
       <div className="mb-4">
-        <label className="block text-gray-700">Name</label>
+        <label className="block text-white">Usuario</label>
         <input
           type="text"
           value={name}
@@ -51,19 +52,30 @@ const LoginPage = () => {
         />
       </div>
       <div className="mb-4">
-        <label className="block text-gray-700">Password</label>
+        <label className="block text-white">Contraseña</label>
         <input
-          type="password"
+          type={showPassword ? 'text' : 'password'}
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           className="block w-full px-3 py-2 mt-1 border border-gray-300 rounded-md shadow-sm"
         />
+        <div className="mt-2">
+          <label className="text-white">
+            <input
+              type="checkbox"
+              checked={showPassword}
+              onChange={() => setShowPassword(!showPassword)}
+              className="mr-2"
+            />
+            Mostrar contraseña
+          </label>
+      </div>
       </div>
       <button
         onClick={handleLogin}
-        className="px-4 py-2 text-white bg-blue-500 rounded-md"
+        className="w-full px-4 py-2 text-white bg-blue-500 rounded-md"
       >
-        Login
+        Acceder
       </button>
     </div>
   );
