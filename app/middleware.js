@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-
+//comentario teste
 export function middleware(request) {
   const currentUser = request.cookies.get('currentUser')?.value;
 
