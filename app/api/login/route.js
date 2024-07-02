@@ -5,8 +5,9 @@ export async function POST(request) {
     // Parse the request body to get the name and password
     const { name, password } = await request.json();
 
-    // Fetch data from the API
-    const response = await fetch('/api/data'); // Ensure this endpoint is correct
+    // Use the full URL for the fetch request
+    const baseUrl = process.env.URL || 'http://localhost:3000'; // Use 'http://localhost:3000' for local development
+    const response = await fetch(`${baseUrl}/api/data`); 
 
     if (!response.ok) {
       console.error('Error fetching data from API:', response.statusText);
