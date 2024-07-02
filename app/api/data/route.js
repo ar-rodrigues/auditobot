@@ -1,7 +1,6 @@
 import { google } from 'googleapis';
 
 export const GET = async (req, res) => {
-  
   // Variables for credentials
   const typeAcc = process.env['GOOGLE_TYPE'];
   const projectId = process.env['GOOGLE_PROJECT_ID'];
@@ -11,17 +10,17 @@ export const GET = async (req, res) => {
   const clientId = process.env['GOOGLE_CLIENT_ID'];
   // Parse the service account credentials from the environment variable
   const credentials = {
-      "type": typeAcc,
-      "project_id": projectId,
-      "private_key_id": privateKeyId,
-      "private_key": privateKey,
-      "client_email": clientEmail,
-      "client_id": clientId,
-      "auth_uri": "https://accounts.google.com/o/oauth2/auth",
-      "token_uri": "https://oauth2.googleapis.com/token",
-      "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
-      "client_x509_cert_url": `https://www.googleapis.com/robot/v1/metadata/x509/${clientEmail}`,
-      "universe_domain": "googleapis.com"
+    "type": typeAcc,
+    "project_id": projectId,
+    "private_key_id": privateKeyId,
+    "private_key": privateKey,
+    "client_email": clientEmail,
+    "client_id": clientId,
+    "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+    "token_uri": "https://oauth2.googleapis.com/token",
+    "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+    "client_x509_cert_url": `https://www.googleapis.com/robot/v1/metadata/x509/${clientEmail}`,
+    "universe_domain": "googleapis.com"
   };
 
   const auth = new google.auth.GoogleAuth({

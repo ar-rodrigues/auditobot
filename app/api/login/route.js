@@ -2,7 +2,6 @@ import { NextResponse } from 'next/server';
 
 export async function POST(request) {
   try {
-    // Parse the request body to get the name and password
     const { name, password } = await request.json();
 
     // Use the full URL for the fetch request
@@ -18,6 +17,7 @@ export async function POST(request) {
 
     // Access users data
     const usersData = data.users;
+    console.log(data);
 
     // Find the specific user
     const user = usersData.find(user => user.name === name && user.password === password);
@@ -29,6 +29,6 @@ export async function POST(request) {
     }
   } catch (error) {
     console.error('Server error:', error);
-    return NextResponse.json({ error: 'Server error:' }, { status: 500 });
+    return NextResponse.json({ error: 'Server error' }, { status: 500 });
   }
 }
