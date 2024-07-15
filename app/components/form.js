@@ -4,16 +4,12 @@ import GeneratedText from './generatedText';
 
 const Form = ({ user }) => {
   const [formData, setFormData] = useState({
-    auditor: user,
-    convenio: null,
+    empleado: user,
+    options: null,
     location: '',
-    coordinates: '',
-    local: '',
-    tipo: '',
-    observacion: ''
+    coordinates: ''
   });
-  const [convenioOptions, setConvenioOptions] = useState([]);
-  const [tipoOptions, setTipoOptions] = useState([]);
+  const [options, setOptions] = useState([]);
   const [generatedText, setGeneratedText] = useState(false);
   const [message, setMessage] = useState('');
   const [isLoadingLocation, setIsLoadingLocation] = useState(false);
@@ -25,10 +21,8 @@ const Form = ({ user }) => {
     fetch('/api/data')
       .then(response => response.json())
       .then(data => {
-        const optionsConvenios = data.convenios.map(convenio => ({ value: convenio, label: convenio }));
-        const optionsTipo = data.tipos.map(tipo => ({ value: tipo, label: tipo }));
-        setConvenioOptions(optionsConvenios);
-        setTipoOptions(optionsTipo);
+        const options = data.centrosTrabajo.map(option => ({ value: option, label: option }));
+        setOptions(options);
       });
   }, []);
 
@@ -75,7 +69,7 @@ const Form = ({ user }) => {
 
   const handleGenerate = (e) => {
     e.preventDefault();
-    if (!formData.auditor || !formData.convenio || !formData.location.street || !formData.tipo) {
+    if (!formData.empleado || !formData.options || !formData.location.street ) {
       alert('Por favor complete todos los campos');
       return;
     }
@@ -91,84 +85,32 @@ const Form = ({ user }) => {
 
   return (
     <form ref={formRef} className="items-center justify-center w-full max-w-lg p-4 mx-auto text-black bg-white rounded-lg shadow-md min-w-[300px] ">
-      {/* Auditor */}
+      {/* Empleado */}
       <div className="mb-4">
-        <label className="block text-gray-700">Auditor:</label>
+        <label className="block text-gray-700">Empleado:</label>
         <input
           type="text"
-          value={formData.auditor}
+          value={formData.empleado}
           disabled
-          onChange={(e) => handleChange('auditor', e.target.value)}
+          onChange={(e) => handleChange('Empleado', e.target.value)}
           className="block w-full px-3 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-[#fa2541] sm:text-sm"
-          aria-label="Auditor"
+          aria-label="Empleado"
         />
       </div>
-      {/* Convenio */}
+      {/* Centros de Trabajo */}
       <div className="mb-4">
-        <label className="block text-gray-700">Convenio:</label>
+        <label className="block text-gray-700">Centro de Trabajo:</label>
         <Select
-          value={formData.convenio}
-          onChange={(option) => handleChange('convenio', option)}
-          options={convenioOptions}
-          placeholder="Seleccione Convenio"
+          value={formData.options}
+          onChange={(option) => handleChange('options', option)}
+          options={options}
+          placeholder="Seleccione el Centro de Trabajo"
           isClearable
           className="mt-1"
-          aria-label="Convenio"
+          aria-label="Centro de Trabajo"
         />
       </div>
-      {/* Tipo */}
-      <div className="mb-4">
-        <label className="block text-gray-700">Tipo:</label>
-        <Select
-          value={formData.tipo}
-          onChange={(option) => handleChange('tipo', option)}
-          options={tipoOptions}
-          placeholder="Seleccione Tipo"
-          isClearable
-          className="mt-1"
-          aria-label="Tipo"
-        />
-      </div>
-      {/* Local */}
-      <div className="mb-4">
-        <label className="block text-gray-700">Local:</label>
-        <div>
-          <label className="inline-flex items-center">
-            <input
-              type="radio"
-              name="local"
-              value="Matriz"
-              onChange={(e) => handleChange('local', e.target.value)}
-              className="text-indigo-600 form-radio"
-              required
-              aria-label="Matriz"
-            />
-            <p className="ml-2">Matriz</p>
-          </label>
-          <label className="inline-flex items-center ml-6">
-            <input
-              type="radio"
-              name="local"
-              value="Adicional"
-              onChange={(e) => handleChange('local', e.target.value)}
-              className="text-indigo-600 form-radio"
-              required
-              aria-label="Adicional"
-            />
-            <p className="ml-2">Adicional</p>
-          </label>
-        </div>
-      </div>
-      {/* Observacion */}
-      <div className="mb-4">
-        <label className="block text-gray-700">Observacion:</label>
-        <textarea
-          value={formData.observacion}
-          onChange={(e) => handleChange('observacion', e.target.value)}
-          className="block w-full px-3 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-          aria-label="Observacion"
-        ></textarea>
-      </div>
+      
       {/* Localizacion */}
       <div className="mb-4">
   <button

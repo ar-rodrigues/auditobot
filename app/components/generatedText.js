@@ -4,18 +4,14 @@ import ConfirmationDialog from './confirmation'; // Adjust the import path as ne
 import { sendToTelegram } from '../lib/sendToTelegram';
 
 const GeneratedText = ({ formData, message, setMessage }) => {
-  const { auditor, convenio, location, coordinates, tipo, observacion, local } = formData;
+  const { empleado, options, location, coordinates} = formData;
   const items = [
-    { label: 'Auditor', value: auditor },
-    { label: 'Convenio', value: convenio ? convenio.label : '' },
-    { label: 'Tipo', value: tipo ? tipo.label : '' },
-    { label: 'Local', value: local },
+    { label: 'Empleado', value: empleado },
+    { label: 'Centro de Trabajo', value: options ? options.label : '' },
     { label: 'Calle', value: location.street },
     { label: 'Ciudad', value: location.city },
     { label: 'Estado', value: location.state },
     { label: 'CP', value: location.postalCode },
-    { label: 'GPS', value: coordinates },
-    { label: 'Observación', value: observacion },
     { label: 'Fecha y Hora', value: new Date().toLocaleString() },
   ];
   const [copyStatus, setCopyStatus] = useState({});

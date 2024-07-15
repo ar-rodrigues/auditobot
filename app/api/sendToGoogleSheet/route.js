@@ -3,7 +3,7 @@ import { google } from 'googleapis';
 export const POST = async (req, res) => {
   try {
     const body = await req.json(); 
-    const { auditor, convenio, location, coordinates, tipo, local, observacion } = body;
+    const { empleado, options, location, coordinates } = body;
 
     // Variables for credentials
     const typeAcc = process.env['GOOGLE_TYPE'];
@@ -53,16 +53,13 @@ export const POST = async (req, res) => {
     
     const values = [
       [
-        auditor,
-        convenio.value,
-        tipo.value,
-        local,
+        empleado,
+        options.value,
         location.street,
         location.city,
         location.state,
         location.postalCode,
         coordinates,
-        observacion,
         formattedDate, // Date part
         formattedTime // Time part
       ]

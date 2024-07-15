@@ -48,8 +48,7 @@ const getDataFromSpreadsheet = async () => {
 
     // Initialize the output structure
     const formattedData = {
-      convenios: [],
-      tipos: [],
+      centrosTrabajo: [],
       users: []
     };
 
@@ -59,20 +58,16 @@ const getDataFromSpreadsheet = async () => {
         name: row[0] || '',
         password: row[1] || ''
       };
-      const convenio = row[2] || '';
-      const tipo = row[3] || '';
+      const centrosTrabajo = row[2] || '';
 
       if (user.name && user.password) {
         formattedData.users.push(user);
       }
 
-      if (convenio && !formattedData.convenios.includes(convenio)) {
-        formattedData.convenios.push(convenio);
+      if (centrosTrabajo && !formattedData.centrosTrabajo.includes(centrosTrabajo)) {
+        formattedData.centrosTrabajo.push(centrosTrabajo);
       }
 
-      if (tipo && !formattedData.tipos.includes(tipo)) {
-        formattedData.tipos.push(tipo);
-      }
     });
 
     return formattedData;
