@@ -35,7 +35,7 @@ export const POST = async (req, res) => {
     const sheets = google.sheets({ version: 'v4', auth });
 
     const spreadsheetId = process.env['SPREADSHEET_ID']; // replace with your Google Sheets ID
-    const range = 'locationsDB!A2:Z'; // replace with your desired sheet name and range
+    const range = 'baseDatos!A2:Z'; // replace with your desired sheet name and range
 
     const formattedDate = new Intl.DateTimeFormat('es-MX', {
       year: 'numeric',

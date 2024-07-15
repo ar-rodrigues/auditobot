@@ -32,7 +32,7 @@ const getDataFromSpreadsheet = async () => {
   const sheets = google.sheets({ version: 'v4', auth });
 
   const spreadsheetId = process.env['SPREADSHEET_ID']; // replace with your Google Sheets ID
-  const range = 'auditobotData!A1:Z'; // replace with your desired sheet name and range
+  const range = 'samanthoBotBase!A1:Z'; // replace with your desired sheet name and range
 
   try {
     const response = await sheets.spreadsheets.values.get({
